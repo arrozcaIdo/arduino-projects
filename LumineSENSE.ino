@@ -1,3 +1,9 @@
+/*  LUMINESENSE : Structured Earthquake Notification for Safer Evacuation as an 
+Earthquake Alert System for Optimal Evacuation Time Based on NDRRMC Standard Procedure
+A device equipped with an earthquake sensor, designed to facilitate a well-organized evacuation plan when 
+installed in multi-story buildings, with multiple LumineSENSE bulbs integrated into each room.
+*/
+
 #define xPin A1
 #define yPin A2
 #define zPin A3
