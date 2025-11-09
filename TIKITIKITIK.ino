@@ -1,243 +1,183 @@
-const int led1Pin = 2; 
-const int led2Pin = 3;
-const int led3Pin = 4; 
-const int led4Pin = 5;  
+#define xPin A1
+#define yPin A2
+#define zPin A3
+#define ledPin1 3
+#define ledPin2 4
+#define ledPin3 5
+
+const int samples = 10;
+const int maxVal = 20;
+
+int xSample = 0;
+int ySample = 0;
+int zSample = 0;
+
+int relay = 2;
+int buzzer = 10;
+unsigned long startTime;
+boolean movementDetected = false;
+
+void fastBlink() {
+  for (int i = 0; i < 5; ++i) {
+      digitalWrite(relay, LOW);
+      digitalWrite(buzzer, LOW);
+      digitalWrite(ledPin1, LOW);
+      digitalWrite(ledPin2, LOW);
+      digitalWrite(ledPin3, LOW);
+      delay(100);
+      digitalWrite(relay, HIGH);
+      digitalWrite(buzzer, HIGH);
+      digitalWrite(ledPin1, HIGH);
+      digitalWrite(ledPin2, HIGH);
+      digitalWrite(ledPin3, HIGH);
+      delay(100);
+      digitalWrite(relay, LOW);
+      digitalWrite(buzzer, LOW);
+      digitalWrite(ledPin1, LOW);
+      digitalWrite(ledPin2, LOW);
+      digitalWrite(ledPin3, LOW);
+      delay(100);
+      digitalWrite(relay, HIGH);
+      digitalWrite(buzzer, HIGH);
+      digitalWrite(ledPin1, HIGH);
+      digitalWrite(ledPin2, HIGH);
+      digitalWrite(ledPin3, HIGH);
+      delay(100);
+      digitalWrite(relay, LOW);
+      digitalWrite(buzzer, LOW);
+      digitalWrite(ledPin1, LOW);
+      digitalWrite(ledPin2, LOW);
+      digitalWrite(ledPin3, LOW);
+      delay(100);
+      digitalWrite(relay, HIGH);
+      digitalWrite(buzzer, HIGH);
+      digitalWrite(ledPin1, HIGH);
+      digitalWrite(ledPin2, HIGH);
+      digitalWrite(ledPin3, HIGH);
+      delay(100);
+      digitalWrite(relay, LOW);
+      digitalWrite(buzzer, LOW);
+      digitalWrite(ledPin1, LOW);
+      digitalWrite(ledPin2, LOW);
+      digitalWrite(ledPin3, LOW);
+      delay(100);
+      digitalWrite(relay, HIGH);
+      digitalWrite(buzzer, HIGH);
+      digitalWrite(ledPin1, HIGH);
+      digitalWrite(ledPin2, HIGH);
+      digitalWrite(ledPin3, HIGH);
+      delay(100);
+      digitalWrite(relay, LOW);
+      digitalWrite(buzzer, LOW);
+      digitalWrite(ledPin1, LOW);
+      digitalWrite(ledPin2, LOW);
+      digitalWrite(ledPin3, LOW);
+      delay(100);
+      digitalWrite(relay, HIGH);
+      digitalWrite(buzzer, HIGH);
+      digitalWrite(ledPin1, HIGH);
+      digitalWrite(ledPin2, HIGH);
+      digitalWrite(ledPin3, HIGH);
+      delay(900);
+  }
+}
+
+void slowBlink() {
+  for (int i = 0; i < 2; ++i) {
+    digitalWrite(relay, LOW);
+    digitalWrite(buzzer, LOW);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+    digitalWrite(ledPin3, LOW);
+    delay(700);
+    digitalWrite(relay, HIGH);
+    digitalWrite(buzzer, HIGH);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    digitalWrite(ledPin3, HIGH);
+    delay(700);
+  }
+}
 
 void setup() {
-  pinMode(led1Pin, OUTPUT);
-  pinMode(led2Pin, OUTPUT);
-  pinMode(led3Pin, OUTPUT);
-  pinMode(led4Pin, OUTPUT);
+  Serial.begin(115200);
+  pinMode(relay, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+  pinMode(ledPin1, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
+  pinMode(ledPin3, OUTPUT);
+
+  for (int i = 0; i < samples; i++) {
+    xSample += analogRead(xPin);
+    ySample += analogRead(yPin);
+    zSample += analogRead(zPin);
+  }
+
+  xSample /= samples;
+  ySample /= samples;
+  zSample /= samples;
+
+  digitalWrite(relay, HIGH); 
+  digitalWrite(ledPin1, HIGH);
+  digitalWrite(ledPin2, HIGH);
+  digitalWrite(ledPin3, HIGH);
 }
 
 void loop() {
-  
-  int commonDuration = 40; 
+  unsigned long currentTime = millis(); 
 
-  for (int set = 0; set < 3; set++) {
-   
-    int duration1 = 10;
-    for (int i = 0; i < duration1 * 1000; i += 2000) {
-      digitalWrite(led1Pin, HIGH);
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led1Pin, LOW);
-      digitalWrite(led2Pin, LOW);
-      digitalWrite(led3Pin, LOW);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led1Pin, HIGH);
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-    }
-    delay(1000); 
-    int duration2 = 10;
-    for (int i = 0; i < duration2 * 1000; i += 2000) {
-      digitalWrite(led1Pin, HIGH);
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led1Pin, LOW);
-      digitalWrite(led2Pin, LOW);
-      digitalWrite(led3Pin, LOW);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led1Pin, HIGH);
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-    }
-    delay(1000); 
-   int duration3 = 10;
-    for (int i = 0; i < duration3 * 1000; i += 2000) {
-      digitalWrite(led1Pin, HIGH);
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led1Pin, LOW);
-      digitalWrite(led2Pin, LOW);
-      digitalWrite(led3Pin, LOW);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led1Pin, HIGH);
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-    }
-    delay(1000);
-    int duration4 = 10;
-    for (int i = 0; i < duration4 * 1000; i += 2000) {
-      digitalWrite(led1Pin, HIGH);
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led1Pin, LOW);
-      digitalWrite(led2Pin, LOW);
-      digitalWrite(led3Pin, LOW);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led1Pin, HIGH);
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-    }
-    delay(1000);
+  int xRaw = 0, yRaw = 0, zRaw = 0;
 
-   
-    int duration5 = 10;
-    for (int i = 0; i < duration5 * 1000; i += 2000) {
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led2Pin, LOW);
-      digitalWrite(led3Pin, LOW);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-    }
-    delay(1000); 
+  for (int i = 0; i < samples; i++) {
+    xRaw += analogRead(xPin);
+    yRaw += analogRead(yPin);
+    zRaw += analogRead(zPin);
+  }
 
-     int duration6 = 10;
-    for (int i = 0; i < duration6 * 1000; i += 2000) {
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led2Pin, LOW);
-      digitalWrite(led3Pin, LOW);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-    }
-    delay(1000); 
-   
-     int duration7 = 10;
-    for (int i = 0; i < duration7 * 1000; i += 2000) {
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led2Pin, LOW);
-      digitalWrite(led3Pin, LOW);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-    }
-    delay(1000);
-     int duration8 = 10;
-    for (int i = 0; i < duration8 * 1000; i += 2000) {
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led2Pin, LOW);
-      digitalWrite(led3Pin, LOW);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led2Pin, HIGH);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-    }
-    delay(1000);
+  xRaw /= samples;
+  yRaw /= samples;
+  zRaw /= samples;
 
-    
-    int duration9 = 10;
-    for (int i = 0; i < duration9 * 1000; i += 2000) {
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led3Pin, LOW);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-    }
-    delay(1000);
-    int duration10 = 10;
-    for (int i = 0; i < duration10 * 1000; i += 2000) {
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led3Pin, LOW);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-    }
-    delay(1000);
-    int duration11 = 10;
-    for (int i = 0; i < duration11 * 1000; i += 2000) {
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led3Pin, LOW);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-    }
-    delay(1000);
-    int duration12 = 10;
-    for (int i = 0; i < duration12 * 1000; i += 2000) {
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led3Pin, LOW);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led3Pin, HIGH);
-      digitalWrite(led4Pin, HIGH);
-    }
-    delay(1000);
+  int xValue = xSample - xRaw;
+  int yValue = ySample - yRaw;
+  int zValue = zSample - zRaw;
 
-    int duration13 = 10;
-    for (int i = 0; i < duration13 * 1000; i += 2000) {
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led4Pin, HIGH);
+  Serial.print("x=");
+  Serial.print(xValue);
+  Serial.print("\ty=");
+  Serial.print(yValue);
+  Serial.print("\tz=");
+  Serial.println(zValue);
+
+  if (abs(xValue) > maxVal || abs(yValue) > maxVal || abs(zValue) > maxVal) {
+    movementDetected = true;
+    startTime = currentTime;
+  } else {
+    movementDetected = false;
+  }
+
+  if (movementDetected) {
+    while (currentTime - startTime < 10000) {
+      fastBlink();
+      currentTime = millis(); 
     }
-    delay(1000);
-    int duration14 = 10;
-    for (int i = 0; i < duration14 * 1000; i += 2000) {
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led4Pin, HIGH);
+
+    while (currentTime - startTime >= 10000 && currentTime - startTime < 30000) {
+      slowBlink();
+      currentTime = millis();
     }
-    delay(1000);
-    int duration15 = 10;
-    for (int i = 0; i < duration15 * 1000; i += 2000) {
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led4Pin, HIGH);
-    }
-    delay(1000);
-    int duration16 = 10;
-    for (int i = 0; i < duration16 * 1000; i += 2000) {
-      digitalWrite(led4Pin, HIGH);
-      delay(100);
-      digitalWrite(led4Pin, LOW);
-      delay(100);
-      digitalWrite(led4Pin, HIGH);
-    }
-    delay(1000);
+
+    digitalWrite(relay, HIGH);
+    digitalWrite(buzzer, HIGH);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    digitalWrite(ledPin3, HIGH);
+  } else {
+
+    digitalWrite(relay, HIGH);
+    digitalWrite(buzzer, HIGH);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+    digitalWrite(ledPin3, HIGH);
   }
 }
