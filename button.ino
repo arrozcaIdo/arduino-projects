@@ -24,6 +24,7 @@ void loop()
     digitalWrite(ledPin, LOW);
   }
 
+  // for testing led power
  digitalWrite(test, HIGH);
  
 
