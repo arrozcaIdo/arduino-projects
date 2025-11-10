@@ -1,12 +1,20 @@
+
+// two LEDs, led 1 on pin 12, led 2 on pin 9
+
 void setup() {
   
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(12, OUTPUT);
+  pinMode(9, OUTPUT);
 }
 
 // runs forever
 void loop() {
-  digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
-  delay(100);                      // wait for a second
-  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
-  delay(100);                      // wait for a second
+  digitalWrite(12, HIGH);  // turn the LED on (HIGH is the voltage level)
+  digitalWrite(9, LOW);
+  delay(1000);                      // wait for a second
+
+  digitalWrite(12, LOW);   // turn the LED off by making the voltage LOW
+  digitalWrite(9, HIGH);
+  delay(1000);                      // wait for a second
+
 }
