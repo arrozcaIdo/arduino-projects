@@ -11,6 +11,11 @@ void setup(){
 
 void loop(){
   int reading = analogRead(potPin);
-  int angle = map(reading, 0, 1023, 0, 1080);
+  // Map pot to servo speed:
+  // 0   → 0°   (full speed one way)
+  // 512 → 90°  (stop)
+  // 1023→ 180° (full speed other way)
+  int angle = map(reading, 0, 1023, 0, 180);
+
   Servo1.write(angle);
 }
