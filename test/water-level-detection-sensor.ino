@@ -1,22 +1,29 @@
+#include <LiquidCrystal_I2C.h>
 
-
-int adc_id = 0;
-int HistoryValue = 0;
-char printBuffer[128];
-
-void setup()
-{
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+void setup() {
   Serial.begin(9600);
+  lcd.init();
+  lcd.backlight();
 }
+void loop() {
+  int value = analogRead(A0);
+  lcd.setCursor(0, 0);
+  lcd.print("Value :");
+  lcd.print(value);
+  lcd.print("   ");
+  Serial.println(value);
+  lcd.setCursor(0, 1);
+  lcd.print("W Level :");
 
-void loop()
-{
-    int value = analogRead(adc_id); // get adc value
 
-    if(((HistoryValue>=value) && ((HistoryValue - value) > 10)) || ((HistoryValue<value) && ((value - HistoryValue) > 10)))
-    {
-      sprintf(printBuffer,"ADC%d level is %d\n",adc_id, value);
-      Serial.print(printBuffer);
-      HistoryValue = value;
-    }
+  if (value == 0) {
+    lcd.print("Empty ");
+  } else if (value > 1 && value < 350) {
+    lcd.print("LOW   ");
+  } else if (value > 350 && value < 510) {
+    lcd.print("Medium");
+  } else if (value > 510){
+    lcd.print("HIGH  ");
+  }
 }
